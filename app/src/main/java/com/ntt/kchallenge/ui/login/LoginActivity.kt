@@ -10,11 +10,9 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.Toast
-
+import android.widget.*
+import androidx.appcompat.widget.AppCompatSpinner
+import com.ntt.kchallenge.data.model.Country
 import com.ntt.kchallenge.R
 
 class LoginActivity : AppCompatActivity() {
@@ -26,8 +24,9 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_login)
 
-        val username = findViewById<EditText>(R.id.username)
-        val password = findViewById<EditText>(R.id.password)
+        val username = findViewById<EditText>(R.id.txtUsername)
+        val password = findViewById<EditText>(R.id.txtPassword)
+        val country = findViewById<AppCompatSpinner>(R.id.spinnerCountry)
         val login = findViewById<Button>(R.id.login)
         val loading = findViewById<ProgressBar>(R.id.loading)
 
@@ -95,6 +94,20 @@ class LoginActivity : AppCompatActivity() {
                 loginViewModel.login(username.text.toString(), password.text.toString())
             }
         }
+
+        val countryList = getCountryListData()
+        val adapter = ArrayAdapter<Country>(this, android.R.layout.simple_spinner_dropdown_item, countryList)
+        country.adapter = adapter
+        country.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+
+            }
+
+        }
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
@@ -110,6 +123,16 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showLoginFailed(@StringRes errorString: Int) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun getCountryListData(): List<Country> {
+        val countryList = ArrayList<Country>()
+        countryList.add(Country("1", "Singapore"))
+        countryList.add(Country("2", "USA"))
+        countryList.add(Country("3", "UK"))
+        countryList.add(Country("4", "Canada"))
+        countryList.add(Country("5", "Japan"))
+        return countryList
     }
 }
 
