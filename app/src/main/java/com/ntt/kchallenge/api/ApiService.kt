@@ -6,5 +6,5 @@ import retrofit2.http.GET
 interface ApiService {
 
     @GET("/users")
-    fun getUsers(): Observable<List<UsersApiResponse>>
+    fun getUsers(): Observable<List<UserResponse>>
 }

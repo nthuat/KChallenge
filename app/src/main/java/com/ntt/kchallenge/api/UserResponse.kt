@@ -1,9 +1,12 @@
 package com.ntt.kchallenge.api
 
+import android.os.Parcelable
 import com.ntt.kchallenge.data.model.Address
 import com.ntt.kchallenge.data.model.Company
+import kotlinx.android.parcel.Parcelize
 
-data class UsersApiResponse(
+@Parcelize
+data class UserResponse(
     val id: Int,
     val name: String,
     val username: String,
@@ -12,4 +15,4 @@ data class UsersApiResponse(
     val phone: String,
     val website: String,
     val company: Company
-)
+) : Parcelable
