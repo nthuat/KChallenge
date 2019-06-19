@@ -1,6 +1,7 @@
 package com.ntt.kchallenge.ui.login
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -12,12 +13,17 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.appcompat.widget.AppCompatSpinner
+import com.google.android.material.snackbar.Snackbar
 import com.ntt.kchallenge.data.model.Country
 import com.ntt.kchallenge.R
+import com.ntt.kchallenge.data.database.DatabaseHelper
+import com.ntt.kchallenge.data.model.User
+import com.ntt.kchallenge.ui.users.UserListActivity
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
+    private lateinit var databaseHelper: DatabaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +38,9 @@ class LoginActivity : AppCompatActivity() {
 
         loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
+
+        databaseHelper = DatabaseHelper(this)
+        databaseHelper.addUser(User("thuat26", "123456"))
 
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
             val loginState = it ?: return@Observer
@@ -91,7 +100,12 @@ class LoginActivity : AppCompatActivity() {
 
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
+//                loginViewModel.login(username.text.toString(), password.text.toString())
+                if (databaseHelper.validateUser(username.text.toString(), password.text.toString())) {
+                    startActivity(Intent(context, UserListActivity::class.java))
+                } else {
+                    Snackbar.make(rootView, "Invalid username or password!", Snackbar.LENGTH_LONG).show()
+                }
             }
         }
 
