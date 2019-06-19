@@ -44,6 +44,20 @@ class UserListActivity : AppCompatActivity() {
             // activity should be in two-pane mode.
             twoPane = true
         }
+
+        ApiClient.create().getUsers()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ setupRecyclerView(user_list, it) },
+                { Log.e(TAG, it?.message) })
+    }
+
+    private fun setupRecyclerView(recyclerView: RecyclerView, userList: List<UserResponse>) {
+        recyclerView.adapter = UserListAdapter(this, userList, twoPane)
+    }
+
+    companion object {
+        private const val TAG = "UserListActivity"
     }
 
 }
