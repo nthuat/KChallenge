@@ -8,13 +8,12 @@ class ApiClient {
     companion object {
         fun create(): ApiService {
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://jsonplaceholder.typicode.com/users")
+                .baseUrl("https://jsonplaceholder.typicode.com")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
             return retrofit.create(ApiService::class.java)
-
         }
     }
 }
