@@ -2,12 +2,11 @@ package com.ntt.kchallenge.ui.users
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
-import android.view.MenuItem
 import com.ntt.kchallenge.R
-import kotlinx.android.synthetic.main.activity_user_detail.*
+import com.ntt.kchallenge.api.UserResponse
 
 /**
  * An activity representing a single User detail screen. This
@@ -20,15 +19,6 @@ class UserDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_detail)
-        setSupportActionBar(detail_toolbar)
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
-
-        // Show the Up button in the action bar.
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
@@ -44,9 +34,9 @@ class UserDetailActivity : AppCompatActivity() {
             // using a fragment transaction.
             val fragment = UserDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putString(
-                        UserDetailFragment.ARG_ITEM_ID,
-                        intent.getStringExtra(UserDetailFragment.ARG_ITEM_ID)
+                    putParcelable(
+                        UserDetailFragment.ARG_USER,
+                        intent.getParcelableExtra<UserResponse>(UserDetailFragment.ARG_USER)
                     )
                 }
             }
