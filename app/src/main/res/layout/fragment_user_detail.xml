@@ -39,6 +39,14 @@
                     android:scaleType="centerCrop"
                     app:layout_collapseMode="parallax"/>
 
+            <com.google.android.gms.maps.MapView
+                    android:id="@+id/map_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_collapseMode="parallax">
+
+            </com.google.android.gms.maps.MapView>
+
             <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
