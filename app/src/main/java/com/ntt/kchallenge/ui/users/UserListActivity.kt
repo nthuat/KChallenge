@@ -29,6 +29,7 @@ class UserListActivity : AppCompatActivity() {
      * device.
      */
     private var twoPane: Boolean = false
+    private var adapter: UserListAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,16 +46,29 @@ class UserListActivity : AppCompatActivity() {
             twoPane = true
         }
 
+        swipe_layout.setOnRefreshListener { refreshData() }
+        setupRecyclerView()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        refreshData()
+    }
+
+    private fun refreshData() {
         ApiClient.create().getUsers()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ setupRecyclerView(user_list, it) },
+            .doOnSubscribe { swipe_layout.isRefreshing = true }
+            .doAfterTerminate { swipe_layout.isRefreshing = false }
+            .subscribe({ adapter?.updateUserListData(it) },
                 { Log.e(TAG, it?.message) })
     }
 
-    private fun setupRecyclerView(recyclerView: RecyclerView, userList: List<UserResponse>) {
-        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-        recyclerView.adapter = UserListAdapter(this, userList, twoPane)
+    private fun setupRecyclerView() {
+        user_list.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        adapter = UserListAdapter(this, twoPane)
+        user_list.adapter = adapter
     }
 
     companion object {

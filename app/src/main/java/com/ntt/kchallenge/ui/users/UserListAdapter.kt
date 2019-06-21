@@ -16,10 +16,11 @@ import kotlin.random.Random
 
 class UserListAdapter(
     private val parentActivity: UserListActivity,
-    private val userList: List<UserResponse>,
     private val twoPane: Boolean
 ) : RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
     private val onClickListener: View.OnClickListener
+
+    private val userList: MutableList<UserResponse> = ArrayList()
 
     init {
         onClickListener = View.OnClickListener { v ->
@@ -41,6 +42,12 @@ class UserListAdapter(
                 v.context.startActivity(intent)
             }
         }
+    }
+
+    fun updateUserListData(data: List<UserResponse>) {
+        userList.clear()
+        userList.addAll(data)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
