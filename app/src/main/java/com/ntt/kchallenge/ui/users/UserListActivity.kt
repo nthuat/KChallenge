@@ -3,8 +3,8 @@ package com.ntt.kchallenge.ui.users
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import com.ntt.kchallenge.R
 import com.ntt.kchallenge.api.ApiClient
 import com.ntt.kchallenge.api.UserResponse
@@ -53,6 +53,7 @@ class UserListActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView, userList: List<UserResponse>) {
+        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         recyclerView.adapter = UserListAdapter(this, userList, twoPane)
     }
 

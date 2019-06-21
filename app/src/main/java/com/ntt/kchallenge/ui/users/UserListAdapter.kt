@@ -1,6 +1,8 @@
 package com.ntt.kchallenge.ui.users
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ntt.kchallenge.R
 import com.ntt.kchallenge.api.UserResponse
 import kotlinx.android.synthetic.main.user_list_content.view.*
+import kotlin.random.Random
 
 class UserListAdapter(
     private val parentActivity: UserListActivity,
@@ -49,7 +52,10 @@ class UserListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = userList[position]
         holder.txtName.text = user.name
-        holder.txtEmail.text = user.email
+        holder.txtPhone.text = user.phone
+        holder.txtIcon.text = user.name[0].toString().toUpperCase()
+        val color = Color.argb(255, Random.nextInt(256), Random.nextInt(256), Random.nextInt(256))
+        (holder.txtIcon.background as GradientDrawable).setColor(color)
 
         with(holder.itemView) {
             tag = user
@@ -60,7 +66,8 @@ class UserListAdapter(
     override fun getItemCount() = userList.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val txtName: TextView = view.txtName
-        val txtEmail: TextView = view.txtEmail
+        val txtIcon: TextView = view.tv_icon
+        val txtName: TextView = view.tv_name
+        val txtPhone: TextView = view.tv_phone
     }
 }

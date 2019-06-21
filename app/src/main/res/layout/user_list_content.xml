@@ -1,20 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tool="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="@dimen/padding_large">
+    <TextView
+            android:id="@+id/tv_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_drawable"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:text="A"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"/>
 
     <TextView
-            android:id="@+id/txtName"
+            android:id="@+id/tv_name"
+            android:layout_toRightOf="@+id/tv_icon"
+            android:layout_toEndOf="@+id/tv_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
+            tool:text="Andrew"
+            android:textStyle="bold"
+            android:layout_marginLeft="@dimen/text_margin"
             android:textAppearance="?attr/textAppearanceListItem"/>
 
     <TextView
-            android:id="@+id/txtEmail"
+            android:id="@+id/tv_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
+            android:layout_toRightOf="@+id/tv_icon"
+            android:layout_toEndOf="@+id/tv_icon"
+            android:layout_below="@+id/tv_name"
+            tool:text="0927828822"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginTop="5dp"
             android:textAppearance="?attr/textAppearanceListItem"/>
-</LinearLayout>
+</RelativeLayout>
