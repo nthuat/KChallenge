@@ -9,13 +9,15 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:paddingLeft="@dimen/padding_large"
+            android:paddingTop="@dimen/padding_large"
+            android:paddingRight="@dimen/padding_large">
 
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@mipmap/ic_phone"/>
+                android:src="@mipmap/ic_person"/>
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -41,6 +43,11 @@
                     android:textColor="@color/gray"
                     android:textSize="16sp"/>
 
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/divider"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -48,7 +55,9 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:paddingLeft="@dimen/padding_large"
+            android:paddingTop="@dimen/padding_large"
+            android:paddingRight="@dimen/padding_large">
 
         <ImageView
                 android:layout_width="wrap_content"
@@ -64,19 +73,17 @@
                 android:orientation="vertical">
 
             <TextView
-                    android:id="@+id/detail_mobile"
+                    android:id="@+id/tv_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="+6587927079"
                     android:textColor="@color/back"
                     android:textSize="18sp"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mobile"
-                    android:textColor="@color/gray"
-                    android:textSize="16sp"/>
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/divider"/>
 
         </LinearLayout>
 
@@ -85,13 +92,15 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:paddingLeft="@dimen/padding_large"
+            android:paddingTop="@dimen/padding_large"
+            android:paddingRight="@dimen/padding_large">
 
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@mipmap/ic_phone"/>
+                android:src="@mipmap/ic_email"/>
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -99,7 +108,6 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="16sp"
                 android:orientation="vertical">
-
             <TextView
                     android:id="@+id/tv_email"
                     android:layout_width="wrap_content"
@@ -107,7 +115,11 @@
                     tools:text="hshs@gmail.com"
                     android:textColor="@color/back"
                     android:textSize="18sp"/>
-
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/divider"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -115,30 +127,34 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
+            android:paddingLeft="@dimen/padding_large"
+            android:paddingTop="@dimen/padding_large"
+            android:paddingRight="@dimen/padding_large">
 
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_phone"/>
-
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_info"/>
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="16sp"
                 android:orientation="vertical">
-
             <TextView
                     android:id="@+id/tv_website"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="ntt.com"
+                    android:layout_gravity="center_vertical"
                     android:textColor="@color/back"
                     android:textSize="18sp"/>
-
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/divider"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -146,13 +162,14 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
-
+            android:paddingLeft="@dimen/padding_large"
+            android:paddingTop="@dimen/padding_large"
+            android:paddingRight="@dimen/padding_large">
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@mipmap/ic_phone"/>
+                android:src="@mipmap/ic_home"/>
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -160,7 +177,6 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="16sp"
                 android:orientation="vertical">
-
             <TextView
                     android:id="@+id/tv_address"
                     android:layout_width="wrap_content"
@@ -168,6 +184,11 @@
                     tools:text="79 Mount Sinai"
                     android:textColor="@color/back"
                     android:textSize="18sp"/>
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/divider"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -175,9 +196,10 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
+
+            android:paddingLeft="@dimen/padding_large"
+            android:paddingTop="@dimen/padding_large"
+            android:paddingRight="@dimen/padding_large">
 
         <ImageView
                 android:layout_width="wrap_content"
@@ -190,7 +212,6 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="16sp"
                 android:orientation="vertical">
-
             <TextView
                     android:id="@+id/tv_company"
                     android:layout_width="wrap_content"
@@ -198,6 +219,11 @@
                     tools:text="ABC"
                     android:textColor="@color/back"
                     android:textSize="18sp"/>
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/divider"/>
 
         </LinearLayout>
 
