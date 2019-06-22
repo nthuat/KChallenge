@@ -1,10 +1,8 @@
 package com.ntt.kchallenge.ui.users
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NavUtils
 import com.ntt.kchallenge.R
 import com.ntt.kchallenge.api.UserResponse
 
@@ -50,14 +48,7 @@ class UserDetailActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem) =
         when (item.itemId) {
             android.R.id.home -> {
-                // This ID represents the Home or Up button. In the case of this
-                // activity, the Up button is shown. Use NavUtils to allow users
-                // to navigate up one level in the application structure. For
-                // more details, see the Navigation pattern on Android Design:
-                //
-                // http://developer.android.com/design/patterns/navigation.html#up-vs-back
-
-                NavUtils.navigateUpTo(this, Intent(this, UserListActivity::class.java))
+                finish()
                 true
             }
             else -> super.onOptionsItemSelected(item)
