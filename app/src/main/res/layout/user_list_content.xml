@@ -3,7 +3,7 @@
                 xmlns:tool="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="?android:attr/selectableItemBackground"
                 android:padding="@dimen/padding_large">
     <TextView
             android:id="@+id/tv_icon"
