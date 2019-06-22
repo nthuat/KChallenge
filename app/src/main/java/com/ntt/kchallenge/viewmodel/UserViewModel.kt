@@ -22,7 +22,8 @@ class UserViewModel : ViewModel() {
 
     private fun initData() {
         userDataFactory = UserDataFactory()
-        loadDataState = Transformations.switchMap(userDataFactory.mutableLiveData) { dataSource -> dataSource.loadDataState }
+        loadDataState =
+            Transformations.switchMap(userDataFactory.mutableLiveData) { dataSource -> dataSource.loadDataState }
 
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(true)
