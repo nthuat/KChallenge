@@ -1,16 +1,11 @@
 package com.ntt.kchallenge.ui.users
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import com.ntt.kchallenge.R
-import com.ntt.kchallenge.api.ApiClient
-import com.ntt.kchallenge.api.UserResponse
-
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.ntt.kchallenge.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_user_list.*
 import kotlinx.android.synthetic.main.user_list.*
 
@@ -29,7 +24,8 @@ class UserListActivity : AppCompatActivity() {
      * device.
      */
     private var twoPane: Boolean = false
-    private var adapter: UserListAdapter? = null
+    private lateinit var userViewModel: UserViewModel
+    private lateinit var adapter: UserListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,33 +42,27 @@ class UserListActivity : AppCompatActivity() {
             twoPane = true
         }
 
-        swipe_layout.setOnRefreshListener { refreshData() }
+        swipe_layout.isRefreshing = true
+        swipe_layout.setOnRefreshListener {
+            userViewModel.refresh()
+        }
+
+        adapter = UserListAdapter(this, twoPane)
         setupRecyclerView()
-    }
 
-    override fun onResume() {
-        super.onResume()
-        refreshData()
-    }
+        userViewModel = UserViewModel()
+        userViewModel.userLiveData?.observe(this, Observer { pagedList ->
+            adapter.submitList(pagedList)
+            swipe_layout.isRefreshing = false
+        })
 
-    private fun refreshData() {
-        ApiClient.create().getUsers()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { swipe_layout.isRefreshing = true }
-            .doAfterTerminate { swipe_layout.isRefreshing = false }
-            .subscribe({ adapter?.updateUserListData(it) },
-                { Log.e(TAG, it?.message) })
+        userViewModel.loadDataState?.observe(this, Observer { networkState ->
+            adapter.setNetworkState(networkState)
+        })
     }
 
     private fun setupRecyclerView() {
         user_list.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-        adapter = UserListAdapter(this, twoPane)
         user_list.adapter = adapter
     }
-
-    companion object {
-        private const val TAG = "UserListActivity"
-    }
-
 }
