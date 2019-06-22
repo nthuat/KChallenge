@@ -1,15 +1,12 @@
 package com.ntt.kchallenge.ui.users
 
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -20,36 +17,12 @@ import kotlinx.android.synthetic.main.item_loading.view.*
 import kotlinx.android.synthetic.main.user_list_content.view.*
 import kotlin.random.Random
 
-class UserListAdapter(
-    private val parentActivity: UserListActivity,
-    private val twoPane: Boolean
-) : PagedListAdapter<UserResponse, RecyclerView.ViewHolder>(diffCallback) {
-    private val onClickListener: View.OnClickListener
+class UserListAdapter : PagedListAdapter<UserResponse, RecyclerView.ViewHolder>(diffCallback) {
 
+    var onClickListener: View.OnClickListener? = null
+    var onLoadFailedListener: OnLoadFailedListener? = null
 
     private var loadDataState: LoadDataState? = null
-
-    init {
-        onClickListener = View.OnClickListener { v ->
-            val user = v.tag as UserResponse
-            if (twoPane) {
-                val fragment = UserDetailFragment().apply {
-                    arguments = Bundle().apply {
-                        putParcelable(UserDetailFragment.ARG_USER, user)
-                    }
-                }
-                parentActivity.supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.user_detail_container, fragment)
-                    .commit()
-            } else {
-                val intent = Intent(v.context, UserDetailActivity::class.java).apply {
-                    putExtra(UserDetailFragment.ARG_USER, user)
-                }
-                v.context.startActivity(intent)
-            }
-        }
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -80,9 +53,9 @@ class UserListAdapter(
         return loadDataState != null && loadDataState == LoadDataState.LOADING
     }
 
-    fun setNetworkState(loadDataState: LoadDataState?) {
+    fun setLoadDataState(loadDataState: LoadDataState?) {
         if (loadDataState?.status == LoadDataState.Status.FAILED && itemCount == 0) {
-            Toast.makeText(parentActivity, loadDataState.msg, Toast.LENGTH_LONG).show()
+            onLoadFailedListener?.onError(loadDataState.msg)
         } else {
             val preLoadingStatus = isLoading()
             this.loadDataState = loadDataState
@@ -94,7 +67,6 @@ class UserListAdapter(
                 }
             }
         }
-
     }
 
     inner class UserViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -128,7 +100,7 @@ class UserListAdapter(
                 progressBar.visibility = View.GONE
             }
             if (loadDataState?.status == LoadDataState.Status.FAILED) {
-                Toast.makeText(parentActivity, loadDataState.msg, Toast.LENGTH_LONG).show()
+                onLoadFailedListener?.onError(loadDataState.msg)
             }
         }
 
@@ -147,7 +119,10 @@ class UserListAdapter(
             override fun areContentsTheSame(oldItem: UserResponse, newItem: UserResponse): Boolean {
                 return oldItem == newItem
             }
-
         }
+    }
+
+    interface OnLoadFailedListener {
+        fun onError(message: String)
     }
 }

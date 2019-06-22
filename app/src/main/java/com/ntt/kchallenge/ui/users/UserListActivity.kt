@@ -1,10 +1,14 @@
 package com.ntt.kchallenge.ui.users
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.google.android.material.snackbar.Snackbar
 import com.ntt.kchallenge.R
+import com.ntt.kchallenge.api.UserResponse
 import com.ntt.kchallenge.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_user_list.*
 import kotlinx.android.synthetic.main.user_list.*
@@ -47,7 +51,15 @@ class UserListActivity : AppCompatActivity() {
             userViewModel.refresh()
         }
 
-        adapter = UserListAdapter(this, twoPane)
+        adapter = UserListAdapter()
+        adapter.onClickListener = View.OnClickListener { v ->
+            handleClickItemAction(v.tag as UserResponse)
+        }
+        adapter.onLoadFailedListener = object : UserListAdapter.OnLoadFailedListener {
+            override fun onError(message: String) {
+                handleError(message)
+            }
+        }
         setupRecyclerView()
 
         userViewModel = UserViewModel()
@@ -57,12 +69,35 @@ class UserListActivity : AppCompatActivity() {
         })
 
         userViewModel.loadDataState?.observe(this, Observer { networkState ->
-            adapter.setNetworkState(networkState)
+            adapter.setLoadDataState(networkState)
         })
     }
 
     private fun setupRecyclerView() {
         user_list.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         user_list.adapter = adapter
+    }
+
+    private fun handleClickItemAction(user: UserResponse) {
+        if (twoPane) {
+            val fragment = UserDetailFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(UserDetailFragment.ARG_USER, user)
+                }
+            }
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.user_detail_container, fragment)
+                .commit()
+        } else {
+            val intent = Intent(this, UserDetailActivity::class.java).apply {
+                putExtra(UserDetailFragment.ARG_USER, user)
+            }
+            startActivity(intent)
+        }
+    }
+
+    private fun handleError(message: String) {
+        Snackbar.make(user_list, message, Snackbar.LENGTH_LONG).show()
     }
 }
