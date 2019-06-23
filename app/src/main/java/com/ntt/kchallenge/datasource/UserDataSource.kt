@@ -3,7 +3,7 @@ package com.ntt.kchallenge.datasource
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.ntt.kchallenge.api.ApiClient
-import com.ntt.kchallenge.api.UserResponse
+import com.ntt.kchallenge.data.model.UserResponse
 import com.ntt.kchallenge.utils.LoadDataState
 
 class UserDataSource : PageKeyedDataSource<Int, UserResponse>() {

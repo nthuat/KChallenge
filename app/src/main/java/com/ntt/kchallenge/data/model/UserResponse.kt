@@ -1,8 +1,6 @@
-package com.ntt.kchallenge.api
+package com.ntt.kchallenge.data.model
 
 import android.os.Parcelable
-import com.ntt.kchallenge.data.model.Address
-import com.ntt.kchallenge.data.model.Company
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

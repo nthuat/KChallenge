@@ -2,7 +2,7 @@ package com.ntt.kchallenge.datasource
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import com.ntt.kchallenge.api.UserResponse
+import com.ntt.kchallenge.data.model.UserResponse
 
 class UserDataFactory : DataSource.Factory<Int, UserResponse>() {
     val mutableLiveData: MutableLiveData<UserDataSource> = MutableLiveData()

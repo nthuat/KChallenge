@@ -13,7 +13,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.ntt.kchallenge.R
-import com.ntt.kchallenge.api.UserResponse
+import com.ntt.kchallenge.data.model.UserResponse
 import kotlinx.android.synthetic.main.fragment_user_detail.view.*
 import kotlinx.android.synthetic.main.user_detail.view.*
 
