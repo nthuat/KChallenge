@@ -1,25 +1,23 @@
-package com.ntt.kchallenge.data
+package com.ntt.kchallenge.datasource
 
+import com.ntt.kchallenge.data.Result
+import com.ntt.kchallenge.data.database.DatabaseHelper
 import com.ntt.kchallenge.data.model.User
 import java.io.IOException
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
-class LoginDataSource {
+class LoginDataSource(private val databaseHelper: DatabaseHelper) {
 
     fun login(username: String, password: String): Result<User> {
-        try {
-            // TODO: handle loggedInUser authentication
-            val fakeUser = User("thuat26", "123456")
-            return Result.Success(fakeUser)
+        return try {
+            val exist = databaseHelper.validateUser(username, password)
+            if (exist) Result.Success(User(username, password))
+            else Result.Error(IOException("Username or password is incorrect!"))
         } catch (e: Throwable) {
-            return Result.Error(IOException("Error logging in", e))
+            Result.Error(IOException("Error logging in", e))
         }
-    }
-
-    fun logout() {
-        // TODO: revoke authentication
     }
 }
 
