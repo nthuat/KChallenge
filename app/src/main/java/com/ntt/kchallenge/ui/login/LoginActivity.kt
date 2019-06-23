@@ -3,32 +3,33 @@ package com.ntt.kchallenge.ui.login
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
-import com.ntt.kchallenge.data.model.Country
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.ntt.kchallenge.R
-import com.ntt.kchallenge.data.database.DatabaseHelper
-import com.ntt.kchallenge.data.model.User
+import com.ntt.kchallenge.data.model.Country
 import com.ntt.kchallenge.datasource.LoginViewModelFactory
 import com.ntt.kchallenge.ui.users.UserListActivity
 import com.ntt.kchallenge.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_login.progress_loading as loading
-import kotlinx.android.synthetic.main.activity_login.til_username as tilUsername
-import kotlinx.android.synthetic.main.activity_login.tv_username as tvUsername
-import kotlinx.android.synthetic.main.activity_login.til_password as tilPassword
-import kotlinx.android.synthetic.main.activity_login.tv_password as tvPassword
 import kotlinx.android.synthetic.main.activity_login.btn_login as btnLogin
+import kotlinx.android.synthetic.main.activity_login.progress_loading as loading
 import kotlinx.android.synthetic.main.activity_login.spinner_country as spinnerCountry
+import kotlinx.android.synthetic.main.activity_login.til_password as tilPassword
+import kotlinx.android.synthetic.main.activity_login.til_username as tilUsername
 import kotlinx.android.synthetic.main.activity_login.tv_invalid_msg as tvInvalidMsg
+import kotlinx.android.synthetic.main.activity_login.tv_password as tvPassword
+import kotlinx.android.synthetic.main.activity_login.tv_username as tvUsername
 
 class LoginActivity : AppCompatActivity() {
 
@@ -42,8 +43,14 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory(this))
             .get(LoginViewModel::class.java)
 
-        loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
+        loginViewModel.countryList.observe(this, Observer {
+            loading.visibility = View.GONE
+            setCountrySpinner(it)
+        })
+
+        loginViewModel.loginFormState.observe(this, Observer {
             val loginState = it ?: return@Observer
+            tvInvalidMsg.visibility = View.GONE
 
             if (loginState.isDataValid) {
                 tilUsername.isErrorEnabled = false
@@ -61,11 +68,16 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     tilPassword.isErrorEnabled = false
                 }
+                if (loginState.countryError != null) {
+                    tvInvalidMsg.visibility = View.VISIBLE
+                    tvInvalidMsg.text = getString(loginState.countryError!!)
+                } else {
+                    tvInvalidMsg.visibility = View.GONE
+                }
             }
-            tvInvalidMsg.visibility = View.GONE
         })
 
-        loginViewModel.loginResult.observe(this@LoginActivity, Observer {
+        loginViewModel.loginResult.observe(this, Observer {
             val loginResult = it ?: return@Observer
             loading.visibility = View.GONE
             if (loginResult) {
@@ -74,6 +86,9 @@ class LoginActivity : AppCompatActivity() {
                 showLoginFailed()
             }
         })
+
+        loading.visibility = View.VISIBLE
+        loginViewModel.getCountries()
 
         tvUsername.afterTextChanged {
             loginViewModel.loginUsernameChanged(
@@ -91,23 +106,39 @@ class LoginActivity : AppCompatActivity() {
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
-                        handleLogin(tvUsername.text.toString(), tvPassword.text.toString())
+                        handleLogin(
+                            tvUsername.text.toString(),
+                            tvPassword.text.toString(),
+                            spinnerCountry.selectedItem as Country
+                        )
                 }
                 false
             }
         }
 
         btnLogin.setOnClickListener {
-            handleLogin(tvUsername.text.toString(), tvPassword.text.toString())
+            handleLogin(tvUsername.text.toString(), tvPassword.text.toString(), spinnerCountry.selectedItem as Country)
         }
-
-        val countryList = getCountryListData()
-        val adapter = ArrayAdapter<Country>(this, android.R.layout.simple_spinner_dropdown_item, countryList)
-        spinnerCountry.adapter = adapter
     }
 
-    private fun handleLogin(username: String, password: String) {
-        loginViewModel.loginDataChanged(username, password)
+    private fun setCountrySpinner(countryList: List<Country>) {
+        val adapter = ArrayAdapter<Country>(this, android.R.layout.simple_spinner_dropdown_item, countryList)
+        spinnerCountry.adapter = adapter
+        spinnerCountry.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                val index = p0?.selectedItem as Country
+                Log.e("x", index.name)
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                loginViewModel.loginCountryChanged(p0?.selectedItem as Country)
+            }
+
+        }
+    }
+
+    private fun handleLogin(username: String, password: String, country: Country) {
+        loginViewModel.loginDataChanged(username, password, country)
         if (loginViewModel.loginFormState.value?.isDataValid == true) {
             loading.visibility = View.VISIBLE
             hideKeyboard(this, container)
@@ -123,16 +154,6 @@ class LoginActivity : AppCompatActivity() {
     private fun showLoginFailed() {
         tvInvalidMsg.text = getString(R.string.invalid_info)
         tvInvalidMsg.visibility = View.VISIBLE
-    }
-
-    private fun getCountryListData(): List<Country> {
-        val countryList = ArrayList<Country>()
-        countryList.add(Country("1", "Singapore"))
-        countryList.add(Country("2", "USA"))
-        countryList.add(Country("3", "UK"))
-        countryList.add(Country("4", "Canada"))
-        countryList.add(Country("5", "Japan"))
-        return countryList
     }
 }
 

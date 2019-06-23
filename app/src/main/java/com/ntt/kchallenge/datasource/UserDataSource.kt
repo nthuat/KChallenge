@@ -12,7 +12,7 @@ class UserDataSource : PageKeyedDataSource<Int, UserResponse>() {
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, UserResponse>) {
         var count = 1
-        ApiClient.create().getUsers()
+        ApiClient.createTypicodeClient().getUsers()
             .doOnSubscribe { loadDataState.postValue(LoadDataState.LOADING) }
             .subscribe({ result ->
                 if (result != null) {
@@ -27,7 +27,7 @@ class UserDataSource : PageKeyedDataSource<Int, UserResponse>() {
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, UserResponse>) {
-        ApiClient.create().getUsers()
+        ApiClient.createTypicodeClient().getUsers()
             .doOnSubscribe { loadDataState.postValue(LoadDataState.LOADING) }
             .subscribe({ result ->
                 if (result != null) {

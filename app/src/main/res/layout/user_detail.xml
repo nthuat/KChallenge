@@ -32,7 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="Andrew"
-                    android:textColor="@color/back"
+                    android:textColor="@color/black"
                     android:textSize="18sp"/>
 
             <TextView
@@ -77,7 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="+6587927079"
-                    android:textColor="@color/back"
+                    android:textColor="@color/black"
                     android:textSize="18sp"/>
             <View
                     android:layout_width="match_parent"
@@ -113,7 +113,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="hshs@gmail.com"
-                    android:textColor="@color/back"
+                    android:textColor="@color/black"
                     android:textSize="18sp"/>
             <View
                     android:layout_width="match_parent"
@@ -148,7 +148,7 @@
                     android:layout_height="wrap_content"
                     tools:text="ntt.com"
                     android:layout_gravity="center_vertical"
-                    android:textColor="@color/back"
+                    android:textColor="@color/black"
                     android:textSize="18sp"/>
             <View
                     android:layout_width="match_parent"
@@ -182,7 +182,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="79 Mount Sinai"
-                    android:textColor="@color/back"
+                    android:textColor="@color/black"
                     android:textSize="18sp"/>
             <View
                     android:layout_width="match_parent"
@@ -217,7 +217,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="ABC"
-                    android:textColor="@color/back"
+                    android:textColor="@color/black"
                     android:textSize="18sp"/>
             <View
                     android:layout_width="match_parent"
