@@ -1,5 +1,7 @@
 package com.ntt.kchallenge.ui.users
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -48,9 +50,13 @@ class UserDetailFragment : Fragment(), OnMapReadyCallback {
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Set up Map View
-        mapView = rootView.findViewById(R.id.map_view)
+        mapView = rootView.map_view
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
+
+        rootView.detail_fab.setOnClickListener {
+            handleCallAction()
+        }
 
         // Bind data
         userResponse?.let {
@@ -111,6 +117,13 @@ class UserDetailFragment : Fragment(), OnMapReadyCallback {
     override fun onDestroy() {
         super.onDestroy()
         mapView.onDestroy()
+    }
+
+    private fun handleCallAction() {
+        val phone = userResponse?.phone ?: return
+        val intent = Intent(Intent.ACTION_DIAL)
+        intent.data = Uri.parse("tel:$phone")
+        startActivity(intent)
     }
 
     companion object {
