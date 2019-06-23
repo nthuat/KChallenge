@@ -33,7 +33,6 @@ import kotlinx.android.synthetic.main.activity_login.tv_invalid_msg as tvInvalid
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
-    private lateinit var databaseHelper: DatabaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,9 +41,6 @@ class LoginActivity : AppCompatActivity() {
 
         loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory(this))
             .get(LoginViewModel::class.java)
-
-        databaseHelper = DatabaseHelper(this)
-        databaseHelper.addUser(User("thuat26", "123456"))
 
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
             val loginState = it ?: return@Observer
@@ -121,6 +117,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun navigateToHomeScreen() {
         startActivity(Intent(this, UserListActivity::class.java))
+        finish()
     }
 
     private fun showLoginFailed() {

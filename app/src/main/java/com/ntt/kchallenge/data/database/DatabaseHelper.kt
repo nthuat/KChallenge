@@ -30,7 +30,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         contentValues.put(COLUMN_PASSWORD, user.password)
 
         val db = this.writableDatabase
-        db.insert(TABLE_USER, null, contentValues)
+        db.replace(TABLE_USER, null, contentValues)
         db.close()
     }
 
