@@ -8,6 +8,8 @@ import com.ntt.kchallenge.utils.LoadDataState
 
 class UserDataSource : PageKeyedDataSource<Int, UserResponse>() {
 
+    private val MAX_PAGE = 10
+
     val loadDataState = MutableLiveData<LoadDataState>()
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, UserResponse>) {
@@ -32,7 +34,7 @@ class UserDataSource : PageKeyedDataSource<Int, UserResponse>() {
             .subscribe({ result ->
                 if (result != null) {
                     loadDataState.postValue(LoadDataState.LOADED)
-                    val key = if (params.key == 5) null else params.key + 1
+                    val key = if (params.key == MAX_PAGE) null else params.key + 1
                     callback.onResult(result, key)
                 } else {
                     handleError("Result is null!")
@@ -47,8 +49,8 @@ class UserDataSource : PageKeyedDataSource<Int, UserResponse>() {
     }
 
     private fun handleError(throwable: Throwable) {
-        val msg = if (throwable?.message != null) throwable.message else "Something went wrong!"
-        handleError(msg!!)
+        val msg = throwable.message ?: "Something went wrong!"
+        handleError(msg)
     }
 
     private fun handleError(msg: String) {
