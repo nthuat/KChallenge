@@ -3,40 +3,41 @@
                 xmlns:tool="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
                 android:background="?android:attr/selectableItemBackground"
                 android:padding="@dimen/padding_large">
-    <TextView
-            android:id="@+id/tv_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/rounded_drawable"
-            android:gravity="center"
-            android:layout_centerVertical="true"
-            android:text="A"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"/>
-
-    <TextView
-            android:id="@+id/tv_name"
-            android:layout_toRightOf="@+id/tv_icon"
-            android:layout_toEndOf="@+id/tv_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tool:text="Andrew"
-            android:textStyle="bold"
-            android:layout_marginLeft="@dimen/text_margin"
-            android:textAppearance="?attr/textAppearanceListItem"/>
-
-    <TextView
-            android:id="@+id/tv_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/tv_icon"
-            android:layout_toEndOf="@+id/tv_icon"
-            android:layout_below="@+id/tv_name"
-            tool:text="0927828822"
-            android:layout_marginLeft="@dimen/text_margin"
-            android:layout_marginTop="5dp"
-            android:textAppearance="?attr/textAppearanceListItem"/>
+	<TextView
+			android:id="@+id/tv_icon"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:layout_marginTop="10dp"
+			android:background="@drawable/rounded_drawable"
+			android:gravity="center"
+			android:layout_centerVertical="true"
+			tool:text="T"
+			android:textColor="@color/white"
+			android:textSize="@dimen/text_size_xlarge"/>
+	
+	<TextView
+			android:id="@+id/tv_name"
+			android:layout_toRightOf="@+id/tv_icon"
+			android:layout_toEndOf="@+id/tv_icon"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			style="@style/TextViewBoldStyle"
+			tool:text="Andrew"
+			android:layout_marginLeft="@dimen/text_margin"/>
+	
+	<TextView
+			android:id="@+id/tv_phone"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_toRightOf="@+id/tv_icon"
+			android:layout_toEndOf="@+id/tv_icon"
+			android:layout_below="@+id/tv_name"
+			tool:text="0927828822"
+			android:layout_marginLeft="@dimen/text_margin"
+			android:layout_marginTop="@dimen/text_margin_small"
+			style="@style/TextViewStyle"/>
 </RelativeLayout>
