@@ -30,7 +30,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         contentValues.put(COLUMN_PASSWORD, user.password)
 
         val db = this.writableDatabase
-        db.insert(TABLE_USER, null, contentValues)
+        db.replace(TABLE_USER, null, contentValues)
         db.close()
     }
 
@@ -48,12 +48,12 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     }
 
     companion object {
-        private val DATABASE_VERSION = 1
-        private val DATABASE_NAME = "KChallengeDB"
-        private val TABLE_USER = "user"
-        private val COLUMN_USER_ID = "userId"
-        private val COLUMN_USER_NAME = "username"
-        private val COLUMN_PASSWORD = "password"
+        private const val DATABASE_VERSION = 1
+        private const val DATABASE_NAME = "KChallengeDB"
+        private const val TABLE_USER = "user"
+        private const val COLUMN_USER_ID = "userId"
+        private const val COLUMN_USER_NAME = "username"
+        private const val COLUMN_PASSWORD = "password"
     }
 
 }

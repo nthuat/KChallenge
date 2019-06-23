@@ -11,7 +11,7 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ntt.kchallenge.R
-import com.ntt.kchallenge.api.UserResponse
+import com.ntt.kchallenge.data.model.UserResponse
 import com.ntt.kchallenge.utils.LoadDataState
 import kotlinx.android.synthetic.main.item_loading.view.*
 import kotlinx.android.synthetic.main.user_list_content.view.*

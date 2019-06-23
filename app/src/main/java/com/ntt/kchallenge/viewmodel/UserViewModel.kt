@@ -5,7 +5,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.ntt.kchallenge.api.UserResponse
+import com.ntt.kchallenge.data.model.UserResponse
 import com.ntt.kchallenge.datasource.UserDataFactory
 import com.ntt.kchallenge.utils.LoadDataState
 import java.util.concurrent.Executors

@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.ntt.kchallenge.R
-import com.ntt.kchallenge.api.UserResponse
+import com.ntt.kchallenge.data.model.UserResponse
 
 /**
  * An activity representing a single User detail screen. This
