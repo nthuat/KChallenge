@@ -2,8 +2,9 @@ package com.ntt.kchallenge.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.ntt.kchallenge.data.LoginDataSource
+import com.ntt.kchallenge.datasource.LoginDataSource
 import com.ntt.kchallenge.data.LoginRepository
+import com.ntt.kchallenge.viewmodel.LoginViewModel
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

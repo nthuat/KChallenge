@@ -1,6 +1,7 @@
 package com.ntt.kchallenge.data
 
 import com.ntt.kchallenge.data.model.User
+import com.ntt.kchallenge.datasource.LoginDataSource
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -24,7 +25,6 @@ class LoginRepository(val dataSource: LoginDataSource) {
 
     fun logout() {
         user = null
-        dataSource.logout()
     }
 
     fun login(username: String, password: String): Result<User> {
