@@ -60,8 +60,10 @@ class UserDetailFragment : Fragment(), OnMapReadyCallback {
             rootView.tv_phone.text = it.phone
             rootView.tv_email.text = it.email
             rootView.tv_website.text = it.website
-            rootView.tv_address.text = it.address.street
+            rootView.tv_address.text = it.address.fullAddress()
             rootView.tv_company.text = it.company.name
+            rootView.tv_catchphrase.text = it.company.catchPhrase
+            rootView.tv_bs.text = it.company.bs
         }
         return rootView
     }

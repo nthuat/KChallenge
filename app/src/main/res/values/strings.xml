@@ -12,4 +12,7 @@
     <string name="login_failed">"Login failed"</string>
     <string name="title_user_list">Users</string>
     <string name="title_user_detail">User Detail</string>
+	<string name="catchphrase">CatchPhrase</string>
+	<string name="company_name">Company Name</string>
+	<string name="bs">BS</string>
 </resources>
